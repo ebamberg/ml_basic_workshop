@@ -34,8 +34,8 @@ def plotHistory(history):
 
 def createModel():
     model= Sequential()
-    model.add(Dense(20, input_shape=(2,),activation='relu'))
-    model.add(Dense(10, activation='relu'))
+    model.add(Dense(30, input_shape=(2,),activation='relu'))
+    model.add(Dense(20, activation='relu'))
     model.add(Dense(1, activation='sigmoid'))  # softmax / sigmoid, sigmoid give probability between 0...1
     return model
 
