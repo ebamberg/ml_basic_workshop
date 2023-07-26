@@ -34,9 +34,9 @@ def plotHistory(history):
 
 def createModel():
     model= Sequential()
-    model.add(Dense(10, input_shape=(2,),activation='relu'))
-    model.add(Dense(20, activation='relu'))
-    model.add(Dense(1, activation='sigmoid'))  # softmax / sigmoid
+    model.add(Dense(20, input_shape=(2,),activation='relu'))
+    model.add(Dense(10, activation='relu'))
+    model.add(Dense(1, activation='sigmoid'))  # softmax / sigmoid, sigmoid give probability between 0...1
     return model
 
 if __name__=='__main__':
@@ -62,9 +62,15 @@ if __name__=='__main__':
 
     # here show anim : why do we need batch ? Why do we need epochs ?
     history=model.fit(x_train, y_train, epochs=100, batch_size=10, validation_data=(x_validation, y_validation))
+    model.save('models/weight-height.model')
 
     plotHistory(history)
     # evaluate the keras model
-   # _, accuracy = model.evaluate(x_test, y_test)
-   # print('Accuracy: %.2f' % (accuracy*100))
+    # _, accuracy = model.evaluate(x_test, y_test)
+    # print('Accuracy: %.2f' % (accuracy*100))
+
+    # make probability predictions with the model / 
+    predictions=model.predict(np.array([[80.3, 180.4],[55.3,150.4]])) # predictions are between 0 and 1, we can see them as probability for the class so just check if <0.5 or >0.5
+    rounded = [ ("Female" if x[0]>=0.5 else "Male") for x in predictions]
+    print (rounded)
         
